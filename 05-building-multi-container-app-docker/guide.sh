@@ -90,7 +90,7 @@ ENV MONGODB_USERNAME=root
 ENV MONGODB_PASSWORD= secret
 # NEW CONNECTION STRING 
   `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}:27017/course-goals?authSource=admin`,
-
+# 
 # RUNNING A MONGODB CONTAINER SETTING USERNAME AND USING THE DEFAULT PASSWORD 
 
 docker run --name mongodb --rm -d -v data:/data/db --network goals-network -e MONGODB_USERNAME=fredAdmin mongo

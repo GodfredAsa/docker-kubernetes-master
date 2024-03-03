@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - data:/data/db
+      # thats enforcing your custom container name 
+    container_name: mongodb
+    env_file:
+      - ./env/mongo.env
+      # specifying your own network 
+    # networks:
+    #   - goals-net
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME: max
+    #   - MONGO_INITDB_ROOT_PASSWORD: secret
+
+  backend:
+    build: ./backend
+    ports: 
+      - "80:80"
+    volumes:
+      - logs:/app/logs # Named volume 
+      - ./backend:/app # bind mount 
+      - /app/node_modules # anonymous volume 
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb
+
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    volumes: 
+      - ./frontend/src:/app/src # bind mount 
+      # enabling interactive mode for frontend react app.
+    stdin_open: true 
+    tty: true
+
+    depends_on:
+      - backend
+
+# Named Volumes must also be specified here 
+  volumes:
+    data:
+    logs:

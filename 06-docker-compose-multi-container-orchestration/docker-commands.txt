@@ -1,0 +1,21 @@
+Create Network
+</> docker network create goals-network
+----------------------------
+Run MongoDB COntainer on the network 
+</> docker run --name mongodb --rm -d -v data:/data/db --network goals-network -e MONGO_INITDB_ROOT_USERNAME=fredAdmin -e MONGO_INITDB_ROOT_PASSWORD=fredPass mongo
+----------------------------
+Build Node API Container  
+
+</> docker run -—name goals-express-backend -e MONGODB_USERNAME=max -e MONGODB_PASSWORD=secret —rm -d --network goals-network -p 80:80 -v pathToApp:/app -v logs:/app/logs -v /app/node_modules goals-express-backend-image
+---------------------------
+Build React SPA Image 
+
+</> docker build -t goals-react .
+
+Build React SPA Container
+</> docker run -—name goals-frontend-container -v ${hostPath}:/app/src -—rm -d -p 3000:3000 -it goals-react 
+
+-----------------------------
+Stop All Containers 
+</> docker stop mongodb gaols-backend goals-frontend
+ 
