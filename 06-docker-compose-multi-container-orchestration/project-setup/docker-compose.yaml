@@ -43,6 +43,6 @@ services:
       - backend
 
 # Named Volumes must also be specified here 
-  volumes:
-    data:
-    logs:
+volumes:
+  data:
+  logs:
