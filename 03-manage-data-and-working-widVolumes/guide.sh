@@ -31,7 +31,7 @@ docker run  -d -p 3000:80 --rm --name feedback-app -v chosenName:/app/feedback f
 docker volume ls 
 
 
-# BIND MOUNT
+# BIND MOUNT: they are great for development and use it as such.
 # pathToCodeBase: /Users/macintosh/Documents/WORKING FILES /Learnings/docker-kubernetes-master/03-manage-data-and-working-widVolumes/1-data-volumes-temp-permanent
 # /app/node_modules => is an anonymous volume, this enables the change in code to reflect in the container 
 docker run  -d -p 3000:80 --rm --name feedback-app -v chosenName:/app/feedback -v "{pathToCodeBase}:/app" -v /app/node_modules feedback-node

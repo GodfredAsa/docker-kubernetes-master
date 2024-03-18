@@ -1,7 +1,7 @@
 # Services refers to containers 
 # With docker-compose when a service is stop the container is auto-removed.
 
-# Docker-compose automatically adds all the services to the same network althugh you coulsd specify 
+# Docker-compose automatically adds all the services to the same network although you could specify 
 
 # Running the docker-compose
 
