@@ -1,0 +1,1 @@
+# Think of K8 as docker-compose for multiple machines, VMs

@@ -10,7 +10,7 @@ docker run --name mongodb --rm -d -p 27017:27017 mongo
 # 2. DOCKERISING NODE 
 - define Dockerfile # refer to this file in the backend to understand how it was done.
 docker build -t goals-express-backend-image .
-docker run -—name goals-express-backend-container —rm -d -p 3000:3000 goals-express-backend-image
+docker run -—name goals-express-backend-container -—rm -d -p 3000:3000 goals-express-backend-image
 # 3. DOCKERISING THE REACT APP 
 - defined Dockerfile
 docker build -t goals-react .
@@ -54,7 +54,7 @@ docker run --name mongodb --rm -d -v data:/data/db --network goals-network mongo
 docker run --name mongodb --rm -d -v data:/data/db --network goals-network -e MONGO_INITDB_ROOT_USERNAME=fredAdmin -e MONGO_INITDB_ROOT_PASSWORD=fredPass mongo
 # after this the REST API server will not be able to connect to the mongodb as its secured now we need to make a minor change to the connection string ffing this 
 # unlined format which is the baseUrl 'mongodb://MONGO_INITDB_ROOT_USERNAME:MONGO_INITDB_ROOT_PASSWORD@mongodb:27017/course-goals?authSource=admin'
-# Example mongodb://fredAdmin:fredPass@mongodb:27017/?authSource=admin as the baseUrl for the backend or server connecting to the mongodb instance.
+# Example mongodb://fredAdmin:fredPass@mongodb:27017/proshop?authSource=admin as the baseUrl for the backend or server connecting to the mongodb instance.
 # NB: Rebuild the server or backend image 
 
 ======================== VOLUMES, BIND MOUNTS AND POLISHING FOR NODEJS APPLICATIONS 
@@ -87,7 +87,7 @@ docker run -—name goals-express-backend-container —rm -d --network goals-net
 # 
 # ENV VARIABLES SET IN THE DOCKERFILE WITH DEFAULT VALUES 
 ENV MONGODB_USERNAME=root
-ENV MONGODB_PASSWORD= secret
+ENV MONGODB_PASSWORD=secret
 # NEW CONNECTION STRING 
   `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}:27017/course-goals?authSource=admin`,
 # 
