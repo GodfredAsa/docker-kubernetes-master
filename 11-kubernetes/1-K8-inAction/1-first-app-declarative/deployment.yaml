@@ -1,0 +1,30 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: second-app
+      tier: backend
+  template:
+    metadata:
+    # labels are user define. Thats up to the devOp engineer 
+      labels:
+        app: second-app
+        teir: backend
+    spec:
+      containers:
+        - name: second-node
+          image: degreatasaa/first-app:v2
+          # -- make it always pull the latest image when you use the imagePullPolicy Always you need not to specify a tag
+          # imagePullPolicy: Always
+      # custom way of how K8 determines an app is up and running not compulsory below 
+      livenessProbe:
+        httpGet :
+        path: / 
+        port: 8080
+        periodSeconds: 10
+        initialDelaySeconds: 1
