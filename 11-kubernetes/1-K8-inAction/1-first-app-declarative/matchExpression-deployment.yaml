@@ -1,0 +1,27 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchExpressions:
+    # selecting Pods in these range of values 
+      - {key: app, operator: In, values: [second-app, first-app]}
+
+        # selecting Pods not in these range of values 
+      # - {key: app, operator: NotIn, values: [second-app, first-app]}
+    # matchLabels:
+    #   app: second-app
+    #   tier: backend
+  template:
+    metadata:
+    # labels are user define. Thats up to the devOp engineer 
+      labels:
+        app: second-app
+        teir: backend
+    spec:
+      containers:
+        - name: second-node
+          image:  degreatasaa/first-app:v2

@@ -1,0 +1,41 @@
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: backend
+spec:
+  selector:
+    app: second-app
+  ports:
+    - protocol: TCP    
+      port:  80
+      targetPort: 8080
+    # - protocol: TCP
+    #   port: 443
+    #   targetPort: 443
+    # ClusterIP: default and internally exposed IP, accessible from inside the cluster ONLY
+
+    # NodePort expose the IP and Port of the worker the node 
+    # LoadBalancer exposed ports to the outside world 
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: second-app
+      tier: backend
+  template:
+    metadata:
+    # labels are user define. Thats up to the devOp engineer 
+      labels:
+        app: second-app
+        teir: backend
+    spec:
+      containers:
+        - name: second-node
+          image:  degreatasaa/first-app:v2
