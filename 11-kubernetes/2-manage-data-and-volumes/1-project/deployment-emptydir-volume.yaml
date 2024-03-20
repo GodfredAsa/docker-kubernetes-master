@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: story-deployment
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: story 
+  template: 
+    metadata:
+      labels:
+        app: story 
+
+# POD specification below 
+    spec: 
+      containers:
+        - name: story
+          image: degreatasaa/kub-data-demo
+          volumeMounts:
+            - name: story-volume
+              mountPath: /app/story
+      volumes:
+        - name: story-volume
+          emptyDir: {} 
+
+# NOTE: emptyDir: is best if you are using only one replica 
+# emptyDir data is not loss when container is restarted data is loss when container is destroyed 
+# with this approach when the /error is visited the container is restarted but the previous data is not loss 
+# if there are more than 1 replica when one clashes the data is loss even on restarting of the container.The better approach is host path.

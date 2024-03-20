@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+# host-pvc => persistent volume claim
+  name: host-pvc
+spec:
+# same as the persistent volume resource definition 
+  volumeName: host-pv
+  accessModes:
+    - ReadWriteOnce
+    # same as persistent volume 
+  storageClassName: standard
+  resources:
+    requests:
+    # should <= that of the actual volume in persistent volume 
+      storage: 1Gi
+  # volumeMode: Filesystem 

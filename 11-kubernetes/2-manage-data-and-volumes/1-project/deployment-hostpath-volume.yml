@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: story-deployment
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: story 
+  template: 
+    metadata:
+      labels:
+        app: story 
+
+# POD specification below 
+    spec: 
+      containers:
+        - name: story
+          image: degreatasaa/kub-data-demo
+          volumeMounts:
+            - name: story-volume
+              mountPath: /app/story
+      volumes:
+        - name: story-volume
+          hostPath: 
+            path: /data
+            type: DirectoryOrCreate
+          
+# With the host path. replicas can share the same host path 
+# Its useful if you want to share existing data into a container.
+#  apply the definition files. Multiple pods running on different nodes will not have the same data as its the case for most clusters  
+# NOTE: Only works with minikube bcos its a one node environment

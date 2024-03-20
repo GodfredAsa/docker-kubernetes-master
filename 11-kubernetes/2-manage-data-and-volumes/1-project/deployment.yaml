@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: story-deployment
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: story 
+  template: 
+    metadata:
+      labels:
+        app: story 
+
+# POD specification below 
+    spec: 
+      containers:
+        - name: story
+          image: degreatasaa/kub-data-demo
+      

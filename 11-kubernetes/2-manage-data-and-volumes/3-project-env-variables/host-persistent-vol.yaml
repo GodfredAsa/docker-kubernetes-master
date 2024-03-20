@@ -1,0 +1,27 @@
+# Defining Persistent Volume 
+
+apiVersion: v1 
+kind: PersistentVolume
+metadata:
+  name: host-pv
+spec:
+  capacity:
+    storage: 1Gi
+    # 2 types Filesystem or Block
+  volumeMode: Filesystem
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce # for hostpath only this option is available. claimed by multiple pods with read write access all pods must run on same node. 
+    # - ReadOnlyMany # not available for host path volume.
+    # - ReadWriteMany 
+  # persistentVolumeReclaimPolicy: Recycle
+  # storageClassName: slow
+  # mountOptions:
+  #   - hard
+  #   - nfsvers=4.1
+  # nfs:
+  #   path: /tmp
+  #   server: 172.17.0.2
+  hostPath:
+    path: /data
+    type: DirectoryOrCreate

@@ -1,0 +1,3 @@
+# csi => Container Storage Interface. Its a flexible type that allows attachment of any storage solution 
+# such AWS EFS as well there is an integration capability. Its most suitable for production Hence did not use it here. 
+# aws efs is usually integrated in csi where efs is the storage solution 
