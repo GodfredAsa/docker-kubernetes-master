@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: story-deployment
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: story 
+  template: 
+    metadata:
+      labels:
+        app: story 
+    spec: 
+      containers:
+        - name: story
+          image: degreatasaa/kube-app
+          volumeMounts:
+            - name: story-volume
+              mountPath: /app/story
+      volumes:
+        - name: story-volume
+          persistentVolumeClaim:
+          # exact name used in the claim definition file resource
+            claimName: host-pvc 
+
+          
+          

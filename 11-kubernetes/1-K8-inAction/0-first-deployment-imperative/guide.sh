@@ -94,3 +94,19 @@ kubectl rollout undo deployment/deploymentName --to-revision=1
 # DELETING SERVICE AND DEPLOYMENT 
 kubectl delete service first-app
 kubectl delete deployment first-app
+
+############   TO ACCESS THE APP USING MINIKUBE LOCALLY ##################
+minikube service serviceName
+
+minikube service story-service                                        
+|-----------|---------------|-------------|---------------------------|
+| NAMESPACE |     NAME      | TARGET PORT |            URL            |
+|-----------|---------------|-------------|---------------------------|
+| default   | story-service |          80 | http://192.168.49.2:32062 |
+|-----------|---------------|-------------|---------------------------|
+🏃  Starting tunnel for service story-service.
+|-----------|---------------|-------------|------------------------|
+| NAMESPACE |     NAME      | TARGET PORT |          URL           |
+|-----------|---------------|-------------|------------------------|
+| default   | story-service |             | http://127.0.0.1:58294 |
+|-----------|---------------|-------------|------------------------|
