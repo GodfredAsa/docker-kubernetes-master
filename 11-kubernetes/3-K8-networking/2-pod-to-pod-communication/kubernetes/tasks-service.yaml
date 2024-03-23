@@ -1,0 +1,12 @@
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: task-service
+spec:
+  selector:
+    app: tasks
+  type: LoadBalancer # LoadBalancer will  be reachable to the outside world. ONLY from inside 
+  ports:
+  - protocol: TCP
+    port: 8000 # Outside facing port 
+    targetPort: 8000 # Internal Pod port of the app 

@@ -60,7 +60,7 @@ minikube service story-service
 - apply the env definition file 
 
 kubectl apply -f=environment-vars.yaml
-# view 
+# view environment variables configured 
 kubectl get configmap
 
 - apply the deployment 
