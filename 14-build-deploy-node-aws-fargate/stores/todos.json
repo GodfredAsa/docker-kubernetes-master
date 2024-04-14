@@ -1,0 +1,7 @@
+[
+  { "id": 1, "name": "Learn JS", "completed": true },
+  { "id": 2, "name": "Learn Python", "completed": false },
+  { "id": 3, "name": "Learn Java", "completed": false },
+  { "id": 4, "name": "pepper", "completed": false },
+  { "id": 5, "name": "Onions", "completed": false }
+]
