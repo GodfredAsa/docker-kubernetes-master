@@ -1,0 +1,63 @@
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass 
+# metadata: 
+#   name: aws-efs-sc 
+# provisioner: efs.csi.aws.com 
+# fileSystemID: fs-075ae3941584de28e
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: efs-pvc
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: aws-efs-sc
+#   resources:
+#     requests:
+#       storage: 5Gi 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-service
+spec:
+  selector:
+    app: users
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+        - name: users-api
+          image: degreatasaa/kub-dep-users:latest
+          env:
+            - name: MONGODB_CONNECTION_URI
+              value: 'mongodb+srv://degreatasaa:bZJ3WCg5BzqEPvfV@user-db.gabdkdk.mongodb.net/users?retryWrites=true&w=majority&appName=user-db'
+            - name: AUTH_API_ADDRESSS
+              value: 'auth-service.default:3000'
+      #     volumeMounts:
+      #       - name: efs-vol
+      #         mountPath: /app/users
+      # volumes:
+      #   - name: efs-vol
+      #     persistentVolumeClaim:
+      #       claimName: efs-pvc
+  
+     
